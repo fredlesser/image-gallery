@@ -1,0 +1,189 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'founders-grotesk-regular';
+  src:  url('../fonts/FoundersGroteskWeb-Regular.eot');
+  src:  url('../fonts/FoundersGroteskWeb-Regular.woff2') format('woff2'),
+        url('../fonts/FoundersGroteskWeb-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'founders-grotesk-regular-italic';
+  src:  url('../fonts/FoundersGroteskWeb-RegularItalic.eot');
+  src:  url('../fonts/FoundersGroteskWeb-RegularItalic.woff2') format('woff2'),
+        url('../fonts/FoundersGroteskWeb-RegularItalic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'founders-grotesk-bold';
+  src:  url('../fonts/FoundersGroteskWeb-Bold.eot');
+  src:  url('../fonts/FoundersGroteskWeb-Bold.woff2') format('woff2'),
+        url('../fonts/FoundersGroteskWeb-Bold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'founders-grotesk-bold-italic';
+  src:  url('../fonts/FoundersGroteskWeb-BoldItalic.eot');
+  src:  url('../fonts/FoundersGroteskWeb-BoldItalic.woff2') format('woff2'),
+        url('../fonts/FoundersGroteskWeb-BoldItalic.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  position: relative;
+  font-size: 2.1rem;
+  @include respond-to(desktop) {
+    font-size: 2.5rem;
+  }
+  font-family: $regular, sans-serif;
+  line-height: 1.28;
+}
+
+.image-responsive {
+  max-width: 100%; 
+  display:block; 
+  height: auto;
+  flex-shrink: 0; /* stops ie stretching images in a flex container */
+}
+
+h1, h2, h3, h4 {
+  color: $darkBlue;
+  font-family: $bold, sans-serif;
+}
+
+h1 {
+  font-size: 4.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.4px;
+  @include respond-to(desktop) {
+    font-size: 7rem;
+  }
+  font-weight: 900;
+  margin: 0 0 5rem 0;
+}
+
+h2 {
+  font-size: 3.5rem;
+  line-height: 1.4;
+  letter-spacing: -0.3px;
+  @include respond-to(desktop) {
+    font-size: 5rem;
+    margin: 0;
+  }  
+}
+
+h3 {
+  font-size: 2.5rem;
+  line-height: 1.16;
+  letter-spacing: -0.1px;
+  margin: 0 0 1rem 0;
+}
+
+a:not(.header__branding):not(.btn):not(.link--arrow):not(.branding--small) {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px solid $green;
+  
+  &:hover {
+    color: $green;
+    border: 0;
+  }
+}
+
+.link--arrow {
+  text-decoration: none;
+  color: $midGray;
+  font-size: 4rem;
+}
+
+.btn {
+  background: $green;
+  border-radius: 1.5rem;
+  padding: .5rem 2rem 1rem 2rem;
+  text-decoration: none;
+  color: #fff;
+  font-size: 2.2rem;
+  display: inline-block;
+  margin: 1rem 0;
+
+  
+  &:hover {
+    background: darken($green, 10%);
+  }
+}
+
+.container {
+  padding: 0 2rem;
+  @include respond-to(tablet) {
+    padding: 4rem 2rem;
+  }
+  max-width: $hd;
+  margin: 0 auto;
+  position: relative;
+}
+
+//Utility classes
+.text--normal {
+  font-family: $regular, sans-serif; 
+}
+
+@mixin hidden {
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+@mixin visible {
+  visibility: visible;
+  height: auto;
+  overflow: visible;
+  position: static;
+}
+
+.show--on-tablet {
+  @include hidden;
+  @include respond-to(tablet) {
+    @include visible;
+  }
+}
+
+.show--on-mobile {
+  @include visible;
+  @include respond-to(tablet) {
+    @include hidden;
+  }
+}
+
+.show--on-desktop {
+  @include hidden;
+  @include respond-to(desktop) {
+    @include visible;
+  }
+}
+
+/* Fix for .svg images in IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  img[src$=".svg"]:not(.logo):not(.image--phone) {
+    width: 100%; 
+  }
+}
