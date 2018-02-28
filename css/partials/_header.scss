@@ -1,47 +1,6 @@
-.header {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  @include respond-to(tablet) {
-    padding: 0;
-  }
-  
-  &__branding {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    @extend h2;
-    font-size: 3rem;
-    
-    @include respond-to(preHd) {
-      margin-left: -4.9rem;
-    }
-
-    span {
-      margin-left: 2rem;
-    }
-  }
-}
-
-.branding--small {
-  // background: rgba($darkBlue, 0.9);
-  // width: 50px;
-  // height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  @include respond-to(preHd) {
-    margin-left: -4.9rem;
-  }
-
-  z-index: 2;
-  transform: translateY(-50px);
-  transition: all 0.5s ease-in-out;
-  opacity: 0;
-  
-  &.nav-up {
-    transform: translateY(1rem);
-    opacity: 1;
-  }
+header {
+  /* background: rgba(0,0,0,0.5); */
+  padding: 20px;
+  position: relative;
+  z-index: 1;
 }
