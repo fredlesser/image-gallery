@@ -1,94 +1,94 @@
 const images = [
   {
-      "src": "img/afro-soul.jpg", 
-      "id": 1,
-      "title": "Afro Soul Voyage",
-      "date": "2017-07-21",
-      "categories": ["music", "test", "test"],
+      src: "img/afro-soul.jpg", 
+      id: 1,
+      title: "Afro Soul Voyage",
+      date: "2017-07-21",
+      category: ["music", "art", "typography"],
   },
   {
-      "src": "img/butterfly.jpg", 
-      "id": 2,
-      "title": "Butterfly",
-      "date": "2017-07-14",
-      "categories": ["geometry", "test", "test"],
+      src: "img/butterfly.jpg", 
+      id: 2,
+      title: "Butterfly",
+      date: "2017-07-14",
+      category: ["geometry", "nature"],
   },
   {
-      "src": "img/pistol.jpg", 
-      "id": 3,
-      "title": "Pistol",
-      "date": "2017-06-19",
-      "categories": ["test", "test", "test"],
+      src: "img/pistol.jpg", 
+      id: 3,
+      title: "Pistol",
+      date: "2017-06-19",
+      category: ["pop-art"],
   },
   {
-      "src": "img/electric.jpg", 
-      "id": 4,
-      "title": "Electric",
-      "date": "2017-06-14",
-      "categories": ["test", "test", "test"],
+      src: "img/electric.jpg", 
+      id: 4,
+      title: "Electric",
+      date: "2017-06-14",
+      category: ["photo", "typography"],
   },
   {
-      "src": "img/eye.jpg", 
-      "id": 5,
-      "title": "Eye",
-      "date": "2017-05-21",
-      "categories": ["test", "test", "test"],
+      src: "img/eye.jpg", 
+      id: 5,
+      title: "Eye",
+      date: "2017-05-21",
+      category: ["typography", "psychedelia"],
   },
   {
-      "src": "img/lovehearts.jpg", 
-      "id": 6,
-      "title": "Lovehearts",
-      "date": "2017-05-24",
-      "categories": ["test", "test", "test"],
+      src: "img/lovehearts.jpg", 
+      id: 6,
+      title: "Lovehearts",
+      date: "2017-05-24",
+      category: ["psychedelia", "pop-art"],
   },
   {
-      "src": "img/deadhead.jpg", 
-      "id": 7,
-      "title": "Deadhead",
-      "date": "2017-08-11",
-      "categories": ["test", "test", "test"],
+      src: "img/deadhead.jpg", 
+      id: 7,
+      title: "Deadhead",
+      date: "2017-08-11",
+      category: ["pop-art", "tattooing"],
   },
   {
-      "src": "img/singer.jpg", 
-      "id": 8,
-      "title": "Singer",
-      "date": "2017-09-21",
-      "categories": ["test", "test", "test"],
+      src: "img/singer.jpg", 
+      id: 8,
+      title: "Singer",
+      date: "2017-09-21",
+      category: ["music", "art"],
   },
   {
-      "src": "img/smoke.jpg", 
-      "id": 9,
-      "title": "Smoke",
-      "date": "2017-09-14",
-      "categories": ["test", "test", "test"],
+      src: "img/smoke.jpg", 
+      id: 9,
+      title: "Smoke",
+      date: "2017-09-14",
+      category: ["music", "art"],
   },
   {
-      "src": "img/codeseventeen.jpg", 
-      "id": 10,
-      "title": "Code 17",
-      "date": "2017-07-16",
-      "categories": ["test", "test", "test"],
+      src: "img/codeseventeen.jpg", 
+      id: 10,
+      title: "Code 17",
+      date: "2017-07-16",
+      category: ["photo", "typography"],
   },
   {
-      "src": "img/angelheart.jpg", 
-      "id": 11,
-      "title": "Angelheart",
-      "date": "2017-08-17",
-      "categories": ["test", "test", "test"],
+      src: "img/angelheart.jpg", 
+      id: 11,
+      title: "Angelheart",
+      date: "2017-08-17",
+      category: ["pop-art", "psychedelia"],
   },
   {
-      "src": "img/shadows.jpg", 
-      "id": 12,
-      "title": "Shadows",
-      "date": "2017-07-28",
-      "categories": ["test", "test", "test"],
+      src: "img/shadows.jpg", 
+      id: 12,
+      title: "Shadows",
+      date: "2017-07-28",
+      category: ["photo", "typography"],
   },
 ];
 
 const thumbNails = document.querySelector('nav ul');
 
-function createThumbs() {
-  const thumbs = images.map(image => {
+function createThumbs(source) {
+  const thumbs = source.map(image => {
     return `
       <li>
         <a href="#">
@@ -115,7 +115,7 @@ function createThumbs() {
   });
 }
 
-createThumbs();
+createThumbs(images);
 
 
 function displayImage(imageSrc) {
@@ -161,7 +161,7 @@ const menu = document.querySelector('.nav');
 //Newest First
 function newestFirst() {
   const newest = images.sort((a, b) => a.date > b.date ? 1 : -1)
-  createThumbs();
+  createThumbs(images);
 }
 
 toolbar.querySelector('.btn--newest').addEventListener('click', function(){
@@ -171,9 +171,22 @@ toolbar.querySelector('.btn--newest').addEventListener('click', function(){
 //Oldest first
 function oldestFirst() {
   const oldest = images.sort((a, b) => a.date > b.date ? -1 : 1)
-  createThumbs();
+  createThumbs(images);
 }
 
 toolbar.querySelector('.btn--oldest').addEventListener('click', function(){
   oldestFirst()
 });
+
+//Filter based on category
+function filterCategory() {
+  const keyword = this.dataset['filter'];
+  const categories = images.filter(image => image.category.includes(keyword));
+  createThumbs(categories);
+}
+
+const filterBtns = Array.from(toolbar.querySelectorAll('.btn[data-filter]'));
+
+filterBtns.forEach(filterBtn => {
+  filterBtn.addEventListener('click', filterCategory)
+})
