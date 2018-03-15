@@ -85,7 +85,10 @@ const images = [
   },
 ];
 
-const thumbNails = document.querySelector('nav ul');
+const toolbar = document.querySelector('.toolbar');
+const main = document.querySelector('main');
+const menu = document.querySelector('.nav');
+const thumbNails = document.querySelector('.thumbnails');
 
 function createThumbs(source) {
   const thumbs = source.map(image => {
@@ -102,7 +105,7 @@ function createThumbs(source) {
   }).join('');
   thumbNails.innerHTML = thumbs;
   
-  const links = document.querySelectorAll('nav a');
+  const links = document.querySelectorAll('.thumbnails a');
 
   //Clicking a thumbnail link reveals the poster version and hides the menu
   links.forEach(link => {
@@ -152,9 +155,6 @@ function displayImage(imageSrc) {
     removeImage();
   });
 }
-const toolbar = document.querySelector('.toolbar');
-const main = document.querySelector('main');
-const menu = document.querySelector('.nav');
 
 
 //Order by date
@@ -178,6 +178,23 @@ toolbar.querySelector('.btn--oldest').addEventListener('click', function(){
   oldestFirst()
 });
 
+//Create filterBtns
+function createFilterButtons() {
+  const categories = images.map(image => image.category);
+  const catsArray = [].concat.apply([], categories);
+  const individualCats = Array.from(new Set(catsArray));
+  const catButtons = individualCats.map(catButton => {
+    return `
+      <li>
+        <button type="button" name="button" class="btn" data-filter="${catButton}">${catButton}</button>
+      </li>
+    `;
+  }).join('');
+  document.querySelector('.filters').innerHTML = catButtons;
+}
+
+createFilterButtons()
+
 //Filter based on category
 function filterCategory() {
   const keyword = this.dataset['filter'];
@@ -190,3 +207,8 @@ const filterBtns = Array.from(toolbar.querySelectorAll('.btn[data-filter]'));
 filterBtns.forEach(filterBtn => {
   filterBtn.addEventListener('click', filterCategory)
 })
+
+//Reset
+document.querySelector('.btn--reset').addEventListener('click', function() {
+  createThumbs(images);
+});
